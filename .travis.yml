@@ -9,3 +9,20 @@ before_install:
 
 script:
   - docker run -e CI=true parhambrz/dockerreact npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  #read the region from AWS app link
+  region: "us-east-2"
+  app: "dockerreact"
+  env: "Dockerreact-env"
+  #get it from S3 part in AWS dashboard (just search for S3 in AWS)
+  bucket_name: "elasticbeanstalk-us-east-2-809977942283"
+  #similar to app name
+  bucket_path: "dockerreact"
+  on:
+    branch: master
+  #key names from Travis CI dashboard
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: "$AWS_SECRET_KEY"
+    
